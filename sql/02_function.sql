@@ -4,6 +4,12 @@
  */
 CREATE OR REPLACE FUNCTION get_actor_ids(text) RETURNS TABLE(actor_id INTEGER) AS
 $$
+
+SELECT actor_id 
+FROM actor
+WHERE first_name ILIKE $1 || '%'
+ORDER BY actor_id ASC;
+
 -- FIXME: implementation goes here
 $$
 LANGUAGE SQL
