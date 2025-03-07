@@ -5,16 +5,14 @@
 
 CREATE OR REPLACE FUNCTION list_category(TEXT) RETURNS TABLE(title TEXT) AS
 $$
-SELECT
-    f.title
-FROM
-    film f
-JOIN
-    film_category fc ON f.film_id = fc.film_id
-JOIN
-    category c ON fc.category_id = c.category_id
-WHERE
-    c.name = $1;
+SELECT film.title
+FROM film
+JOIN film_category ON 
+	film_category.film_id = film.film_id
+JOIN category ON 
+	film_category.category_id = category.category_id
+WHERE category.name = $1
+ORDER BY film.title ASC; -- no clue why it wasn't working with my code for 14 but it worked when I got rid of all shorthand for some reason
 $$
 LANGUAGE SQL
 IMMUTABLE
